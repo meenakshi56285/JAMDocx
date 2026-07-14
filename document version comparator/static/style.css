@@ -1,0 +1,606 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+
+body{
+
+    background:linear-gradient(135deg,#0f172a,#2563eb);
+
+    min-height:100vh;
+
+    padding:40px;
+
+}
+
+
+
+.container{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+
+}
+
+
+
+h1{
+
+    text-align:center;
+
+    color:#1e3a8a;
+
+    font-size:38px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+h2{
+
+    color:#1e40af;
+
+    margin:25px 0 15px;
+
+}
+
+
+
+p{
+
+    text-align:center;
+
+    color:#555;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+/* Cards */
+
+
+.result-box{
+
+    display:flex;
+
+    gap:25px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    margin:30px 0;
+
+}
+
+
+
+.card{
+
+    background:#f8fafc;
+
+    padding:25px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    flex:1;
+
+    min-width:250px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+
+}
+
+
+
+.card h2{
+
+    margin-bottom:15px;
+
+}
+
+
+
+.card span{
+
+    font-size:35px;
+
+    font-weight:bold;
+
+    color:#111827;
+
+}
+
+
+
+
+/* Progress Bar */
+
+
+.progress{
+
+    width:100%;
+
+    height:30px;
+
+    background:#e5e7eb;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin:20px 0 40px;
+
+}
+
+
+
+.progress-bar{
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #22c55e,
+        #16a34a
+    );
+
+    color:white;
+
+    text-align:center;
+
+    line-height:30px;
+
+    font-weight:bold;
+
+}
+
+
+
+
+
+/* Table */
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+}
+
+
+
+th{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:15px;
+
+}
+
+
+
+td{
+
+    padding:15px;
+
+    text-align:center;
+
+    border-bottom:1px solid #ddd;
+
+    word-break:break-word;
+
+}
+
+
+
+
+
+tr.same{
+
+    background:#dcfce7;
+
+}
+
+
+
+tr.different{
+
+    background:#fee2e2;
+
+}
+
+
+
+tr:hover{
+
+    background:#dbeafe;
+
+}
+
+
+
+
+
+/* Status Badge */
+
+
+.status{
+
+    padding:8px 15px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+
+    display:inline-block;
+
+    font-size:14px;
+
+}
+
+
+
+.same-status{
+
+    background:#22c55e;
+
+    color:white;
+
+}
+
+
+
+.different-status{
+
+    background:#ef4444;
+
+    color:white;
+
+}
+
+
+
+
+
+
+/* Buttons */
+
+
+.btn{
+
+    display:inline-block;
+
+    margin:25px 10px;
+
+    padding:14px 30px;
+
+    background:#2563eb;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    transition:0.3s;
+
+}
+
+
+
+.btn:hover{
+
+    transform:scale(1.05);
+
+    background:#1d4ed8;
+
+}
+
+
+
+.back{
+
+    background:#64748b;
+
+}
+
+
+
+.back:hover{
+
+    background:#475569;
+
+}
+
+
+
+
+
+
+/* Highlighted Words */
+
+
+span[style*="red"]{
+
+    background:#fecaca;
+
+    padding:3px;
+
+    border-radius:4px;
+
+}
+
+
+
+span[style*="green"]{
+
+    background:#bbf7d0;
+
+    padding:3px;
+
+    border-radius:4px;
+
+}
+
+
+
+
+
+/* Mobile */
+
+
+@media(max-width:768px){
+
+
+    body{
+
+        padding:15px;
+
+    }
+
+
+    .container{
+
+        padding:20px;
+
+    }
+
+
+    table{
+
+        font-size:12px;
+
+    }
+
+
+    .result-box{
+
+        flex-direction:column;
+
+    }
+
+
+}
+.home-container{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:50px;
+
+    border-radius:25px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+
+}
+
+
+
+.hero{
+
+    text-align:center;
+
+}
+
+
+
+.hero p{
+
+    font-size:18px;
+
+}
+
+
+
+.upload-section{
+
+    display:flex;
+
+    gap:30px;
+
+    justify-content:center;
+
+    margin:40px 0;
+
+    flex-wrap:wrap;
+
+}
+
+
+
+.upload-card{
+
+    background:#eff6ff;
+
+    border:2px solid #2563eb;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    width:350px;
+
+    text-align:center;
+
+}
+
+
+
+.upload-card h2{
+
+    color:#1e40af;
+
+}
+
+
+
+.upload-card input{
+
+    margin-top:20px;
+
+    padding:12px;
+
+    width:100%;
+
+}
+
+
+
+.info{
+
+    text-align:center;
+
+    color:#475569;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.compare-btn{
+
+    display:block;
+
+    margin:auto;
+
+    background:linear-gradient(
+        90deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    padding:16px 45px;
+
+    font-size:20px;
+
+    border-radius:30px;
+
+}
+
+
+.compare-btn:hover{
+
+    transform:scale(1.08);
+
+}
+.removed{
+
+    background:#fecaca;
+
+    color:#b91c1c;
+
+    padding:4px 6px;
+
+    border-radius:5px;
+
+    font-weight:bold;
+
+}
+
+
+
+.added{
+
+    background:#bbf7d0;
+
+    color:#166534;
+
+    padding:4px 6px;
+
+    border-radius:5px;
+
+    font-weight:bold;
+
+}
+<div class="card">
+
+<h2>
+
+{{ similarity }}%
+
+</h2>
+
+
+{% if similarity >= 90 %}
+
+<p class="excellent">
+🟢 Excellent Match
+</p>
+
+
+{% elif similarity >= 70 %}
+
+<p class="medium">
+🟡 Moderate Changes
+</p>
+
+
+{% else %}
+
+<p class="poor">
+🔴 Major Changes
+</p>
+
+
+{% endif %}
+
+
+<p>
+Similarity
+</p>
+
+
+</div>

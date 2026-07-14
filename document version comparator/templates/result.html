@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Comparison Result</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+<style>
+
+body{
+
+    background:#f5f7fb;
+    font-family:Arial, sans-serif;
+
+}
+
+
+.container{
+
+    width:95%;
+    margin:auto;
+    padding:20px;
+
+}
+
+
+h1{
+
+    text-align:center;
+    margin-bottom:30px;
+
+}
+
+
+.cards{
+
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    flex-wrap:wrap;
+
+}
+
+
+.card{
+
+    background:white;
+    padding:20px;
+    width:180px;
+    text-align:center;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+
+.card h2{
+
+    margin:0;
+    color:#333;
+
+}
+
+
+.excellent{
+
+    color:green;
+    font-weight:bold;
+
+}
+
+
+.medium{
+
+    color:orange;
+    font-weight:bold;
+
+}
+
+
+.poor{
+
+    color:red;
+    font-weight:bold;
+
+}
+
+
+.result-box{
+
+    margin-top:30px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+
+input{
+
+    width:95%;
+    padding:12px;
+    margin-bottom:20px;
+    border-radius:8px;
+    border:1px solid #ccc;
+
+}
+
+
+.table-container{
+
+    overflow:auto;
+    max-height:600px;
+
+}
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+
+th{
+
+    background:#333;
+    color:white;
+    padding:12px;
+    position:sticky;
+    top:0;
+
+}
+
+
+td{
+
+    border:1px solid #ddd;
+    padding:12px;
+    vertical-align:top;
+
+}
+
+
+.removed{
+
+    background:#ffcccc;
+    color:red;
+
+}
+
+
+.added{
+
+    background:#ccffcc;
+    color:green;
+
+}
+
+
+.same{
+
+    color:green;
+
+}
+
+
+.different{
+
+    color:red;
+    font-weight:bold;
+
+}
+
+
+.btn{
+
+    display:inline-block;
+    margin:15px 5px;
+    padding:12px 20px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+
+}
+
+
+.btn:hover{
+
+    background:#555;
+
+}
+
+
+@media(max-width:700px){
+
+.cards{
+
+    flex-direction:column;
+    align-items:center;
+
+}
+
+
+.card{
+
+    width:80%;
+
+}
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+{% include 'navbar.html' %}
+
+
+<div class="container">
+
+
+<h1>
+📄 Document Comparison Result
+</h1>
+
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<h2>
+{{ similarity }}%
+</h2>
+
+
+{% if similarity >= 90 %}
+
+<p class="excellent">
+🟢 Excellent Match
+</p>
+
+
+{% elif similarity >= 70 %}
+
+<p class="medium">
+🟡 Moderate Changes
+</p>
+
+
+{% else %}
+
+<p class="poor">
+🔴 Major Changes
+</p>
+
+
+{% endif %}
+
+
+<p>
+Similarity
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+{{ differences }}
+</h2>
+
+<p>
+Differences
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+{{ total_lines }}
+</h2>
+
+<p>
+Total Lines
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+{{ compare_time }}s
+</h2>
+
+<p>
+Compare Time
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+{{ words1 }} / {{ words2 }}
+</h2>
+
+<p>
+Words
+</p>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<h2>
+{{ characters1 }} / {{ characters2 }}
+</h2>
+
+<p>
+Characters
+</p>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="result-box">
+
+
+<h2>
+🔍 Detailed Comparison
+</h2>
+
+
+
+<input 
+type="text"
+id="search"
+placeholder="Search changes..."
+onkeyup="searchTable()"
+>
+
+
+
+
+<div class="table-container">
+
+
+<table id="comparisonTable">
+
+
+<tr>
+
+<th>
+Line
+</th>
+
+<th>
+Document 1
+</th>
+
+<th>
+Document 2
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+
+
+
+{% for item in comparison %}
+
+
+<tr>
+
+
+<td>
+{{ item.line }}
+</td>
+
+
+<td>
+{{ item.doc1 | safe }}
+</td>
+
+
+<td>
+{{ item.doc2 | safe }}
+</td>
+
+
+<td>
+
+{% if item.status == "Same" %}
+
+<span class="same">
+✅ Same
+</span>
+
+
+{% else %}
+
+<span class="different">
+❌ Different
+</span>
+
+
+{% endif %}
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<a href="/download" class="btn">
+⬇ Download PDF
+</a>
+
+
+<a href="/history" class="btn">
+📜 History
+</a>
+
+
+<a href="/" class="btn">
+🔄 Compare Again
+</a>
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+function searchTable(){
+
+
+let input = document.getElementById("search");
+
+let filter = input.value.toLowerCase();
+
+let table = document.getElementById("comparisonTable");
+
+let rows = table.getElementsByTagName("tr");
+
+
+
+for(let i=1;i<rows.length;i++){
+
+
+let text = rows[i].innerText.toLowerCase();
+
+
+if(text.includes(filter)){
+
+rows[i].style.display="";
+
+}
+
+else{
+
+rows[i].style.display="none";
+
+}
+
+
+}
+
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>

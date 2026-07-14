@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<style>
+
+body{
+
+    background:#f5f7fb;
+    font-family:Arial, sans-serif;
+
+}
+
+
+.container{
+
+    width:95%;
+    margin:auto;
+    padding:20px;
+
+}
+
+
+
+h1{
+
+    text-align:center;
+    margin-bottom:30px;
+
+}
+
+
+
+.cards{
+
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+
+}
+
+
+
+.card{
+
+    background:white;
+    width:250px;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+
+
+.card h2{
+
+    font-size:35px;
+    margin:10px;
+
+}
+
+
+
+.chart-box{
+
+    background:white;
+    margin-top:40px;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+
+
+canvas{
+
+    max-width:500px;
+    margin:auto;
+
+}
+
+
+
+.btn{
+
+    display:inline-block;
+    margin:20px 5px;
+    padding:12px 20px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+{% include 'navbar.html' %}
+
+
+
+<div class="container">
+
+
+<h1>
+📊 Document Comparator Dashboard
+</h1>
+
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<h2>
+{{ data.total }}
+</h2>
+
+<p>
+Total Comparisons
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h2>
+{{ data.average }}%
+</h2>
+
+<p>
+Average Similarity
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="chart-box">
+
+
+<h2>
+Similarity Distribution
+</h2>
+
+
+<canvas id="similarityChart"></canvas>
+
+
+</div>
+
+
+
+<a href="/" class="btn">
+🏠 Home
+</a>
+
+
+<a href="/history" class="btn">
+📜 History
+</a>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+let labels = [
+
+{% for item in data.distribution %}
+
+"{{ item[0] }}",
+
+{% endfor %}
+
+];
+
+
+
+let values = [
+
+{% for item in data.distribution %}
+
+{{ item[1] }},
+
+{% endfor %}
+
+];
+
+
+
+new Chart(
+
+document.getElementById("similarityChart"),
+
+{
+
+type:"pie",
+
+data:{
+
+
+labels:labels,
+
+
+datasets:[
+
+{
+
+label:"Comparisons",
+
+data:values
+
+}
+
+]
+
+
+},
+
+
+options:{
+
+responsive:true
+
+}
+
+
+}
+
+);
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

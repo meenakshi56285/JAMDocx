@@ -1,0 +1,82 @@
+<nav class="navbar">
+
+    <div class="logo">
+        📄 Doc Comparator
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="/">
+            🏠 Home
+        </a>
+
+
+        <a href="/history">
+            📜 History
+        </a>
+
+
+        <a href="/dashboard">
+            📊 Dashboard
+        </a>
+
+
+    </div>
+
+</nav>
+
+
+<style>
+
+.navbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#333;
+    padding:15px 30px;
+    border-radius:10px;
+    margin-bottom:20px;
+
+}
+
+
+.logo{
+
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+
+}
+
+
+.nav-links a{
+
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:16px;
+
+}
+
+
+.nav-links a:hover{
+
+    color:#00ff99;
+
+}
+
+
+@media(max-width:700px){
+
+.navbar{
+
+    flex-direction:column;
+    gap:15px;
+
+}
+
+}
+
+</style>

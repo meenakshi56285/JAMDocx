@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Comparison History</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.container{
+
+    width:95%;
+    margin:auto;
+    padding:20px;
+
+}
+
+
+h1{
+
+    text-align:center;
+
+}
+
+
+
+.controls{
+
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:20px;
+    flex-wrap:wrap;
+
+}
+
+
+
+input, select{
+
+    padding:10px;
+    border-radius:8px;
+
+}
+
+
+
+.btn{
+
+    padding:10px 15px;
+    background:#333;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+
+}
+<form method="GET" action="/history">
+
+
+<input 
+type="text"
+name="search"
+placeholder="Search filename..."
+>
+
+
+<select name="filter">
+
+<option value="all">
+All
+</option>
+
+
+<option value="90">
+Excellent Match
+</option>
+
+
+<option value="70">
+Moderate
+</option>
+
+
+<option value="low">
+Major Changes
+</option>
+
+
+</select>
+
+
+<button type="submit">
+Search
+</button>
+
+
+</form>
+<th>
+Action
+</th>
+<td>
+
+<a href="/delete/{{record[0]}}">
+🗑 Delete
+</a>
+
+</td>
+
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+
+}
+
+
+
+th{
+
+    background:#333;
+    color:white;
+    padding:12px;
+
+}
+
+
+
+td{
+
+    padding:12px;
+    border:1px solid #ddd;
+
+}
+
+
+
+.delete{
+
+    background:red;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+{% include 'navbar.html' %}
+
+
+
+<div class="container">
+
+
+<h1>
+📜 Comparison History
+</h1>
+
+
+
+<div class="controls">
+
+
+<form action="/history" method="get">
+
+
+<input 
+type="text"
+name="search"
+placeholder="Search filename..."
+>
+
+
+
+<select name="filter">
+
+
+<option value="all">
+All
+</option>
+
+
+<option value="90">
+90%+
+</option>
+
+
+<option value="70">
+70-90%
+</option>
+
+
+<option value="low">
+Below 70%
+</option>
+
+
+</select>
+
+
+
+<button type="submit">
+Search
+</button>
+
+
+</form>
+
+
+
+<a href="/export" class="btn">
+📥 Export CSV
+</a>
+
+
+</div>
+
+
+
+
+
+{% if records %}
+
+
+<table>
+
+
+<tr>
+
+<th>ID</th>
+<th>Document 1</th>
+<th>Document 2</th>
+<th>Similarity</th>
+<th>Differences</th>
+<th>Date</th>
+<th>Action</th>
+
+</tr>
+
+
+
+{% for record in records %}
+
+
+<tr>
+
+
+<td>
+{{ record[0] }}
+</td>
+
+
+<td>
+{{ record[1] }}
+</td>
+
+
+<td>
+{{ record[2] }}
+</td>
+
+
+<td>
+{{ record[3] }}%
+</td>
+
+
+<td>
+{{ record[4] }}
+</td>
+
+
+<td>
+{{ record[5] }}
+</td>
+
+
+
+<td>
+
+<a href="/delete/{{ record[0] }}" class="btn delete">
+
+🗑 Delete
+
+</a>
+
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+
+</table>
+
+
+
+{% else %}
+
+
+<h3>
+No history found.
+</h3>
+
+
+{% endif %}
+
+
+
+
+<br>
+
+
+<a href="/" class="btn">
+⬅ Back to Compare
+</a>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Document Version Comparator</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+{% include 'navbar.html' %}
+
+<body>
+
+
+<div class="home-container">
+
+
+    <div class="hero">
+
+
+        <h1>
+            📄 Document Version Comparator
+        </h1>
+
+
+        <p>
+            Compare two document versions,
+            detect changes and generate detailed reports.
+        </p>
+
+
+    </div>
+
+
+
+
+
+    <form action="/compare" method="POST" enctype="multipart/form-data">
+
+
+
+        <div class="upload-section">
+
+
+
+            <div class="upload-card">
+
+
+                <h2>
+                    📘 Original Document
+                </h2>
+
+
+                <p>
+                    Upload the first version
+                </p>
+
+
+                <input 
+                type="file"
+                name="file1"
+                accept=".pdf,.docx,.txt,.html,.htm"
+                required>
+
+
+
+            </div>
+
+
+
+
+
+
+            <div class="upload-card">
+
+
+                <h2>
+                    📗 Updated Document
+                </h2>
+
+
+                <p>
+                    Upload the latest version
+                </p>
+
+
+                <input 
+                type="file"
+                name="file2"
+                accept=".pdf,.docx,.txt,.html,.htm"
+                required>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+        <div class="info">
+
+            <strong>
+            Supported Formats:
+            </strong>
+
+            PDF | DOCX | TXT | HTML | HTM
+
+        </div>
+
+
+
+
+        <div class="info">
+
+            HTML files are compared using visible text only.
+            HTML tags, CSS and JavaScript are ignored.
+
+        </div>
+
+
+
+
+
+
+        <button 
+        class="compare-btn"
+        type="submit">
+
+            🚀 Compare Documents
+
+        </button>
+
+
+
+
+    </form>
+
+
+
+</div>
+
+
+
+</body>
+
+</html>
